@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<ruleset name="Aivec">
+    <description>A custom set of rules for all Aivec PHP libraries</description>
+
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/node_modules/*</exclude-pattern>
+    <exclude-pattern>/dist/*</exclude-pattern>
+    <exclude-pattern>/languages/*</exclude-pattern>
+    <exclude-pattern>*/.git/*</exclude-pattern>
+
+    <!-- Add in some extra rules from other standards. -->
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    <rule ref="Generic.Commenting.Todo"/>
+
+    <!-- Check for PHP cross-version compatibility. -->
+    <!--
+	To enable this, the PHPCompatibility standard needs
+	to be installed.
+	See the readme for installation instructions:
+	https://github.com/wimg/PHPCompatibility
+	-->
+    
+	<config name="testVersion" value="5.5-"/>
+	<rule ref="PHPCompatibility"/>
+
+    <!--
+	To get the optimal benefits of using WPCS, we should add a couple of
+	custom properties.
+	Adjust the values of these properties to fit our needs.
+
+	For information on additional custom properties available, check out
+	the wiki:
+	https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
+	-->
+
+    <config name="minimum_supported_wp_version" value="4.6"/>
+
+    <rule ref="PSR2">
+        <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+    </rule>
+
+    <rule ref="WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid"/>
+    <rule ref="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
+    <rule ref="WordPress.NamingConventions.ValidVariableName.NotSnakeCase"/>
+
+    <!-- Documentation stuff -->
+    <rule ref="Squiz.Commenting">
+        <!-- Excluded to allow /* translators: ... */ comments -->
+        <exclude name="Squiz.Commenting.BlockComment.SingleLine"/>
+        <!-- Sniff seems to require indenting with spaces -->
+        <exclude name="Squiz.Commenting.BlockComment.FirstLineIndent"/>
+        <!-- Sniff seems to require indenting with spaces -->
+        <exclude name="Squiz.Commenting.BlockComment.LineIndent"/>
+        <!-- Sniff seems to require indenting with spaces -->
+        <exclude name="Squiz.Commenting.BlockComment.LastLineIndent"/>
+        <!-- WP requires /** for require() et al. See https://github.com/squizlabs/PHP_CodeSniffer/pull/581 -->
+        <!-- <exclude name="Squiz.Commenting.BlockComment.WrongStart"/> -->
+        <!-- WP handbook doesn't clarify one way or another, so ignore -->
+        <!-- <exclude name="Squiz.Commenting.BlockComment.NoEmptyLineAfter"/> -->
+
+        <!-- WP prefers indicating @since, @package, @subpackage etc in class comments -->
+        <!-- <exclude name="Squiz.Commenting.ClassComment.TagNotAllowed"/> -->
+
+        <!-- WP doesn't require //end ... for classes and functions -->
+        <exclude name="Squiz.Commenting.ClosingDeclarationComment.Missing"/>
+
+        <!-- Excluded to allow param documentation for arrays  -->
+        <!-- <exclude name="Squiz.Commenting.DocCommentAlignment.SpaceAfterStar"/> -->
+
+        <!-- WP doesn't require a @author value for Squiz -->
+        <exclude name="Squiz.Commenting.FileComment.IncorrectAuthor"/>
+        <!-- WP doesn't require a @copyright value for Squiz -->
+        <!-- <exclude name="Squiz.Commenting.FileComment.IncorrectCopyright"/> -->
+        <!-- WP doesn't require @author tags -->
+        <!-- <exclude name="Squiz.Commenting.FileComment.MissingAuthorTag"/> -->
+        <!-- WP doesn't require @subpackage tags -->
+        <exclude name="Squiz.Commenting.FileComment.MissingSubpackageTag"/>
+        <!-- WP doesn't require @copyright tags -->
+        <exclude name="Squiz.Commenting.FileComment.MissingCopyrightTag"/>
+        <!-- WP has a different prefered order of tags -->
+        <!-- <exclude name="Squiz.Commenting.FileComment.PackageTagOrder"/> -->
+        <!-- WP has a different prefered order of tags -->
+        <!-- <exclude name="Squiz.Commenting.FileComment.SubpackageTagOrder"/> -->
+        <!-- WP has a different prefered order of tags -->
+        <!-- <exclude name="Squiz.Commenting.FileComment.AuthorTagOrder"/> -->
+        <!-- WP has a different prefered order of tags -->
+        <!-- <exclude name="Squiz.Commenting.FileComment.CopyrightTagOrder"/> -->
+
+        <!-- WP prefers int and bool instead of integer and boolean -->
+        <exclude name="Squiz.Commenting.FunctionComment.IncorrectParamVarName"/>
+        <!-- WP prefers int and bool instead of integer and boolean -->
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidReturn"/>
+        <!-- WP prefers indicating a @return null for early returns -->
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidReturnNotVoid"/>
+        <!-- WP states not all functions require @return -->
+        <exclude name="Squiz.Commenting.FunctionComment.MissingReturn"/>
+        <!-- Excluded to allow param documentation for arrays  -->
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
+        <!-- Excluded to allow param documentation for arrays  -->
+        <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
+        <!-- WP doesn't require type hints -->
+        <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
+
+        <!-- Exclude to allow duplicate hooks to be documented -->
+        <exclude name="Squiz.Commenting.InlineComment.DocBlock"/>
+        <!-- Excluded to allow /* translators: ... */ comments -->
+        <exclude name="Squiz.Commenting.InlineComment.NotCapital"/>
+
+        <!-- Full stop is overkill for inline comments... -->
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+
+        <!-- Not in Inline Docs standard, and a code smell -->
+        <exclude name="Squiz.Commenting.LongConditionClosingComment"/>
+
+        <!-- Not in Inline Docs standard, and needed to bypass WPCS checks -->
+        <exclude name="Squiz.Commenting.PostStatementComment"/>
+
+        <!-- WP prefers int and bool instead of integer and boolean -->
+        <exclude name="Squiz.Commenting.VariableComment.IncorrectVarType"/>
+        <!-- WP demands a @since tag for class variables -->
+        <exclude name="Squiz.Commenting.VariableComment.TagNotAllowed"/>
+        <!-- WP prefers @since first -->
+        <exclude name="Squiz.Commenting.VariableComment.VarOrder"/>
+
+        <!-- It is too early for PHP7 features to be required -->
+        <exclude name="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing"/>
+
+        <!-- Param comments are often unnecessary-->
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+
+        <!-- what even is a 'file doc comment'?... -->
+        <exclude name="Squiz.Commenting.FileComment.Missing"/>
+    </rule>
+
+    <rule ref="Generic.Commenting">
+        <!-- WP has different alignment of tag values -->
+        <exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
+        <!-- WP has a different prefered order of tags -->
+        <exclude name="Generic.Commenting.DocComment.ParamNotFirst"/>
+        <!-- Excluded to allow param documentation for arrays  -->
+        <exclude name="Generic.Commenting.DocComment.ParamGroup"/>
+        <!-- WP prefers no empty line between @param tags and @return -->
+        <exclude name="Generic.Commenting.DocComment.NonParamGroup"/>
+        <!-- Excluded to allow param documentation for arrays  -->
+        <exclude name="Generic.Commenting.DocComment.TagsNotGrouped"/>
+        <!-- Exclude to allow duplicate hooks to be documented -->
+        <exclude name="Generic.Commenting.DocComment.ContentAfterOpen"/>
+        <!-- Exclude to allow duplicate hooks to be documented -->
+        <exclude name="Generic.Commenting.DocComment.SpacingBeforeShort"/>
+        <!-- Exclude to allow duplicate hooks to be documented -->
+        <exclude name="Generic.Commenting.DocComment.ContentBeforeClose"/>
+
+        <!-- WP allows @todo's in comments -->
+        <exclude name="Generic.Commenting.Todo.CommentFound"/>
+        <!-- WP allows @todo's in comments -->
+        <exclude name="Generic.Commenting.Todo.TaskFound"/>
+    </rule>
+
+    <!--Wordpress Rules -->
+    <rule ref="WordPress.Arrays.ArrayIndentation"/>
+    <rule ref="WordPress.Arrays.CommaAfterArrayItem"/>
+    <rule ref="WordPress.Classes.ClassInstantiation"/>
+    <rule ref="WordPress.CodeAnalysis.AssignmentInCondition"/>
+    <rule ref="WordPress.CodeAnalysis.EmptyStatement"/>
+    <rule ref="WordPress.DB.DirectDatabaseQuery"/>
+    <rule ref="WordPress.DB.RestrictedClasses"/>
+    <rule ref="WordPress.DB.RestrictedFunctions"/>
+    <rule ref="WordPress.DB.SlowDBQuery"/>
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals"/>
+    <rule ref="WordPress.NamingConventions.ValidHookName"/>
+    <rule ref="WordPress.PHP.DevelopmentFunctions"/>
+    <rule ref="WordPress.PHP.DiscouragedPHPFunctions"/>
+    <rule ref="WordPress.PHP.DontExtract"/>
+    <rule ref="WordPress.PHP.NoSilencedErrors"/>
+    <rule ref="WordPress.PHP.POSIXFunctions"/>
+    <rule ref="WordPress.PHP.PregQuoteDelimiter"/>
+    <rule ref="WordPress.PHP.RestrictedPHPFunctions"/>
+    <rule ref="WordPress.PHP.StrictComparisons"/>
+    <rule ref="WordPress.PHP.StrictInArray"/>
+    <rule ref="WordPress.Security.PluginMenuSlug"/>
+    <rule ref="WordPress.Security.SafeRedirect"/>
+    <!-- <rule ref="WordPress.Security.ValidatedSanitizedInput"/> -->
+    <rule ref="WordPress.WP.AlternativeFunctions"/>
+    <rule ref="WordPress.WP.CapitalPDangit"/>
+    <rule ref="WordPress.WP.CronInterval"/>
+    <rule ref="WordPress.WP.DeprecatedClasses"/>
+    <rule ref="WordPress.WP.DeprecatedFunctions"/>
+    <rule ref="WordPress.WP.DeprecatedParameterValues"/>
+    <rule ref="WordPress.WP.DeprecatedParameters"/>
+    <rule ref="WordPress.WP.DiscouragedConstants"/>
+    <rule ref="WordPress.WP.DiscouragedFunctions"/>
+    <rule ref="WordPress.WP.EnqueuedResourceParameters"/>
+    <rule ref="WordPress.WP.EnqueuedResources"/>
+    <rule ref="WordPress.WP.GlobalVariablesOverride"/>
+    <rule ref="WordPress.WP.I18n"/>
+    <rule ref="WordPress.WP.PostsPerPage"/>
+    <rule ref="WordPress.DateTime.RestrictedFunctions"/>
+
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+
+</ruleset>
