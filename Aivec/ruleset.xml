@@ -184,7 +184,6 @@
     <rule ref="WordPress.Security.SafeRedirect"/>
     <!-- <rule ref="WordPress.Security.ValidatedSanitizedInput"/> -->
     <rule ref="WordPress.WP.AlternativeFunctions"/>
-    <rule ref="WordPress.WP.CapitalPDangit"/>
     <rule ref="WordPress.WP.CronInterval"/>
     <rule ref="WordPress.WP.DeprecatedClasses"/>
     <rule ref="WordPress.WP.DeprecatedFunctions"/>
