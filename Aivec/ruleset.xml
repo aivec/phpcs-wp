@@ -45,7 +45,7 @@
     <rule ref="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
     <rule ref="WordPress.NamingConventions.ValidVariableName.NotSnakeCase"/>
 
-    <rule ref="Squiz">
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
         <!-- Concatenation offers no significant improvements offer interpolation. Interpolation for SQL is also more legible -->
         <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
     </rule>
