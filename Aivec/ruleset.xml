@@ -20,9 +20,9 @@
 	See the readme for installation instructions:
 	https://github.com/wimg/PHPCompatibility
 	-->
-    
-	<config name="testVersion" value="5.6-"/>
-	<rule ref="PHPCompatibility"/>
+
+    <config name="testVersion" value="5.6-"/>
+    <rule ref="PHPCompatibility"/>
 
     <!--
 	To get the optimal benefits of using WPCS, we should add a couple of
@@ -44,6 +44,11 @@
     <rule ref="WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid"/>
     <rule ref="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
     <rule ref="WordPress.NamingConventions.ValidVariableName.NotSnakeCase"/>
+
+    <rule ref="Squiz">
+        <!-- Concatenation offers no significant improvements offer interpolation. Interpolation for SQL is also more legible -->
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
+    </rule>
 
     <!-- Documentation stuff -->
     <rule ref="Squiz.Commenting">
