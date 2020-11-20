@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<ruleset name="Aivec Docs">
+    <description>Aivec doc standards for PHP libraries/projects</description>
+
+    <rule ref="Generic.Commenting">
+        <!-- Tag types (int, string, etc) do not need to be aligned -->
+        <exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
+
+        <!-- Param tags do not need to be first -->
+        <exclude name="Generic.Commenting.DocComment.ParamNotFirst"/>
+
+        <!-- Excluded to allow param documentation for arrays  -->
+        <exclude name="Generic.Commenting.DocComment.ParamGroup"/>
+        <exclude name="Generic.Commenting.DocComment.TagsNotGrouped"/>
+
+        <!-- We don't care about putting blank lines between tags -->
+        <exclude name="Generic.Commenting.DocComment.NonParamGroup"/>
+
+        <!-- We allow @todo's in comments -->
+        <exclude name="Generic.Commenting.Todo.CommentFound"/>
+        <exclude name="Generic.Commenting.Todo.TaskFound"/>
+    </rule>
+
+    <rule ref="Squiz.Commenting">
+        <!-- Excluded to allow /* translators: ... */ comments -->
+        <exclude name="Squiz.Commenting.BlockComment.SingleLine"/>
+
+        <!-- Confusing if not excluded since most block comments describe what is beneath them -->
+        <exclude name="Squiz.Commenting.BlockComment.NoEmptyLineAfter"/>
+
+        <!-- We prefer indicating @since, etc in class comments -->
+        <exclude name="Squiz.Commenting.ClassComment.TagNotAllowed"/>
+
+        <!-- We don't require //end ... for classes and functions -->
+        <exclude name="Squiz.Commenting.ClosingDeclarationComment.Missing"/>
+
+        <!-- Excluded to allow param documentation for arrays  -->
+        <exclude name="Squiz.Commenting.DocCommentAlignment.SpaceAfterStar"/>
+
+        <!-- We prefer int and bool instead of integer and boolean -->
+        <exclude name="Squiz.Commenting.FunctionComment.IncorrectParamVarName"/>
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidReturn"/>
+
+        <!-- Excluded to allow param documentation for arrays  -->
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
+        <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
+
+        <!-- Exclude to allow duplicate hooks to be documented -->
+        <exclude name="Squiz.Commenting.InlineComment.DocBlock"/>
+
+        <!-- Excluded to allow /* translators: ... */ comments -->
+        <exclude name="Squiz.Commenting.InlineComment.NotCapital"/>
+
+        <!-- Full stop is overkill for inline comments and function param comments... -->
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+
+        <!-- Not in Inline Docs standard, and a code smell -->
+        <exclude name="Squiz.Commenting.LongConditionClosingComment"/>
+
+        <!-- Not in Inline Docs standard, and needed to bypass WPCS checks -->
+        <exclude name="Squiz.Commenting.PostStatementComment"/>
+
+        <!-- We prefer int and bool instead of integer and boolean -->
+        <exclude name="Squiz.Commenting.VariableComment.IncorrectVarType"/>
+
+        <!-- @since tags are fine for class variables -->
+        <exclude name="Squiz.Commenting.VariableComment.TagNotAllowed"/>
+
+        <!-- We prefer @since first -->
+        <exclude name="Squiz.Commenting.VariableComment.VarOrder"/>
+
+        <!-- Param comments are often unnecessary-->
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+
+        <!-- what even is a 'file doc comment'?... -->
+        <exclude name="Squiz.Commenting.FileComment.Missing"/>
+
+        <!-- Don't require a @author value -->
+        <exclude name="Squiz.Commenting.FileComment.IncorrectAuthor"/>
+
+        <!-- Don't require a @copyright value -->
+        <exclude name="Squiz.Commenting.FileComment.IncorrectCopyright"/>
+
+        <!-- Don't require @author tags -->
+        <exclude name="Squiz.Commenting.FileComment.MissingAuthorTag"/>
+
+        <!-- Don't require @subpackage tags -->
+        <exclude name="Squiz.Commenting.FileComment.MissingSubpackageTag"/>
+
+        <!-- Don't require @copyright tags -->
+        <exclude name="Squiz.Commenting.FileComment.MissingCopyrightTag"/>
+    </rule>
+</ruleset>

@@ -1,0 +1,541 @@
+<?xml version="1.0"?>
+<ruleset name="Aivec Core" namespace="AivecCS\Core">
+    <description>Aivec coding standard for PHP libraries/projects</description>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/.git/*</exclude-pattern>
+    <exclude-pattern>/dist/*</exclude-pattern>
+
+    <!-- Only lint PHP files -->
+    <arg name="extensions" value="php" />
+    <!-- Show colors in report -->
+    <arg name="colors"/>
+
+    <!--
+        Use PSR12 as base ruleset.
+
+        The single place where our standard differs from the PSR12 standard is in
+        function/class bracket placement. We prefer opening brackets to be placed on
+        the SAME LINE rather than the NEXT LINE. This is simply a matter of taste.
+    -->
+    <rule ref="PSR12">
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+    </rule>
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+
+    <!-- Use documentation rules -->
+    <rule ref="Aivec-Docs"/>
+
+    <!--
+        Prevents the use of array(). Ensures use of bracket syntax instead.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myarray = array('element');
+
+        1: AFTER ===============================================================================
+        $myarray = ['element'];
+    -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+    <!--
+        The following is a custom rule included by default at Aivec-Core/Sniffs/ArrayBracketSpacingSniff.php
+
+        Ensures that there are no spaces after or before array brackets for array DECLARATION (not access).
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myarray = [ 'element' ];
+
+        1: AFTER ===============================================================================
+        $myarray = ['element'];
+
+    -->
+    <!-- <rule ref="Aivec-Core.ArrayBracketSpacing"/> -->
+
+    <!--
+        Ensures that there are no spaces after or before array brackets for array ACCESS (not declaration).
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myvar = $myarray[ 'element' ];
+
+        1: AFTER ===============================================================================
+        $myvar = $myarray['element'];
+    -->
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+
+    <!--
+        Ensures that the last value in a multi-line array always has a trailing comma.
+        Also ensures that there is exactly one space between array elements.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myarray = [
+            'element1',
+            'element2'
+        ];
+
+        1: AFTER ===============================================================================
+        $myarray = [
+            'element1',
+            'element2',
+        ];
+
+        2: BEFORE ==============================================================================
+        $myarray = ['element1','element2'];
+
+        2: AFTER ===============================================================================
+        $myarray = ['element1', 'element2'];
+    -->
+    <rule ref="WordPress.Arrays.CommaAfterArrayItem"/>
+
+    <!--
+        Ensures that values in a multi-line array are indented correctly.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myarray = [
+        'element1',
+            'element2',
+        ];
+
+        1: AFTER ===============================================================================
+        $myarray = [
+            'element1',
+            'element2',
+        ];
+    -->
+    <rule ref="WordPress.Arrays.ArrayIndentation"/>
+
+    <!--
+        Ensures that an empty array declaration does not contain any spaces between opening and
+        closing brackets.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myarray = [ ];
+
+        1: AFTER ===============================================================================
+        $myarray = [];
+    -->
+    <rule ref="WordPress.Arrays.ArrayDeclarationSpacing.SpaceInEmptyArray"/>
+
+    <!--
+        Ensures that each key value pair in an associative array with more than 1 element starts
+        on a new line.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myarray = ['key1' => 'value1', 'key2' => 'value2'];
+
+        1: AFTER ===============================================================================
+        $myarray = [
+            'key1' => 'value1',
+            'key2' => 'value2'
+        ];
+    -->
+    <rule ref="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
+
+    <!--
+        Ensures that the closing brace in a multi-line array declaration is on a new line.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myarray = [
+            'value1',
+            'value2',];
+
+        1: AFTER ===============================================================================
+        $myarray = [
+            'value1',
+            'value2',
+        ];
+    -->
+    <rule ref="WordPress.Arrays.ArrayDeclarationSpacing.CloseBraceNewLine"/>
+
+    <!--
+        Ensures that each item in a multi-line array is on a new line.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $myarray = [
+            'value1',
+            'value2', 'value3',
+        ];
+
+        1: AFTER ===============================================================================
+        $myarray = [
+            'value1',
+            'value2',
+            'value3',
+        ];
+    -->
+    <rule ref="WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine"/>
+
+
+    <!--
+        Ensures that padding inside parenthesis that are not being used by function declarations,
+        function calls, or control structures is 0.
+
+        Note that parenthesis broken over multiple lines ARE ignored.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $foo = ( $bar !== 'bar' );
+
+        1: AFTER ===============================================================================
+        $foo = ($bar !== 'bar');
+    -->
+    <rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
+        <properties>
+            <property name="spacing" value="0" />
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+
+    <!--
+        Ensures that there are 0 spaces after a cast
+
+        Note that casts broken over multiple lines ARE NOT ignored.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $foo = (int) '1';
+
+        1: AFTER ===============================================================================
+        $foo = (int)'1';
+    -->
+    <rule ref="Generic.Formatting.SpaceAfterCast">
+        <properties>
+            <property name="spacing" value="0" />
+        </properties>
+    </rule>
+
+    <!--
+        Ensures exactly one space before and after assignment operator.
+
+        Note that assignments broken over multiple lines ARE ignored.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $foo   =    'bar';
+
+        1: AFTER ===============================================================================
+        $foo = 'bar';
+    -->
+    <rule ref="Squiz.WhiteSpace.OperatorSpacing">
+        <properties>
+            <property name="ignoreSpacingBeforeAssignments" value="false" />
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+
+    <!--
+        TODO: Consider whether the following rule is preferable over enforcing exactly one space
+        before an assignment operator even in multi-statement declarations
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $shortvar = 1;
+        $verylongvar = 2;
+
+        1: AFTER ===============================================================================
+        $shortvar    = 1;
+        $verylongvar = 2;
+    -->
+    <!-- <rule ref="Generic.Formatting.MultipleStatementAlignment"/> -->
+
+    <!--
+        Ensures there is no blank line after the opening brace in a function declaration.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        public function fooFunc()
+        {
+
+            echo 'opening line';
+        }
+
+        1: AFTER ===============================================================================
+        public function fooFunc()
+        {
+            echo 'opening line';
+        }
+    -->
+    <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace" />
+
+    <!--
+        Ensures that there is no more than 1 blank line in a row in a function body.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        public function fooFunc()
+        {
+            echo 'foo';
+
+
+            echo 'bar';
+        }
+
+        1: AFTER ===============================================================================
+        public function fooFunc()
+        {
+            echo 'foo';
+
+            echo 'bar';
+        }
+    -->
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+        <properties>
+            <property name="ignoreBlankLines" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
+        <severity>5</severity>
+    </rule>
+
+    <!--
+        Ensures 1 blank line before and after functions, except at the top and bottom of a file/class.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        class FooBar
+        {
+
+            public function fooFunc()
+            {
+                echo 'foo';
+            }
+
+
+            public function barFunc()
+            {
+                echo 'bar';
+            }
+
+        }
+
+        1: AFTER ===============================================================================
+        class FooBar
+        {
+            public function fooFunc()
+            {
+                echo 'foo';
+            }
+
+            public function barFunc()
+            {
+                echo 'bar';
+            }
+        }
+    -->
+    <rule ref="Squiz.WhiteSpace.FunctionSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="spacingBeforeFirst" value="0" />
+            <property name="spacingAfterLast" value="0" />
+        </properties>
+    </rule>
+
+    <!--
+        Ensures 1 blank line between member vars. Ensures first member var is not preceded by a blank line.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        class FooBar
+        {
+
+            protected $foo;
+
+            
+            protected $bar;
+
+            public function __construct()
+            {
+            }
+        }
+
+        1: AFTER ===============================================================================
+        class FooBar
+        {
+            protected $foo;
+            
+            protected $bar;
+
+            public function __construct()
+            {
+            }
+        }
+    -->
+    <rule ref="Squiz.WhiteSpace.MemberVarSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="spacingBeforeFirst" value="0" />
+        </properties>
+    </rule>
+
+    <!--
+        Ensures 0 spaces after a ! operator.
+
+        Note that ! operators broken over multiple lines ARE NOT ignored.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        if (! $foo) {
+        }
+
+        1: AFTER ===============================================================================
+        if (!$foo) {
+        }
+    -->
+    <rule ref="Generic.Formatting.SpaceAfterNot">
+        <properties>
+            <property name="spacing" value="0" />
+        </properties>
+    </rule>
+
+    <!--
+        Ensures that a multi-line assignment is idented correctly (4 spaces). Also, ensures that
+        the equal sign is on a new line.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $ternary
+        = ($foobar === true)
+        ? 'foo'
+        : 'bar';
+
+        1: AFTER ===============================================================================
+        $ternary
+            = ($foobar === true)
+            ? 'foo'
+            : 'bar';
+        
+        2: BEFORE ==============================================================================
+        $ternary =
+            ($foobar === true)
+            ? 'foo'
+            : 'bar';
+
+        2: AFTER ===============================================================================
+        $ternary
+            = ($foobar === true)
+            ? 'foo'
+            : 'bar';
+    -->
+    <rule ref="PEAR.Formatting.MultiLineAssignment"/>
+    
+    <!--
+        Ensures snake_case format for global functions
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        function myGlobalFunc()
+        {
+        }
+
+        1: AFTER ===============================================================================
+        function my_global_func()
+        {
+        }
+    -->
+    <rule ref="WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid"/>
+
+    <!-- Ensures global functions are not prefixed with a double underscore (__) -->
+    <rule ref="WordPress.NamingConventions.ValidFunctionName.FunctionDoubleUnderscore"/>
+
+    <!-- Ensures class methods are not prefixed with a double underscore (__) -->
+    <rule ref="WordPress.NamingConventions.ValidFunctionName.MethodDoubleUnderscore"/>
+
+    <!--
+        Ensures camelCase format for class member variables.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        class FooBar
+        {
+            protected $foo_bar;
+        }
+
+        1: AFTER ===============================================================================
+        class FooBar
+        {
+            protected $fooBar;
+        }
+    -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
+
+    <!-- Ensures class public member variables do not have a leading underscore. -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName.PublicHasUnderscore"/>
+ 
+    <!--
+        Ensures string variables do not use double quotes if not required.
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        $foo = "bar";
+
+        1: AFTER ===============================================================================
+        $foo = 'bar';
+    -->
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
+
+    <!--
+        Warns when variable assignment is detected in a condition.
+
+        Auto Fixable: NO
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        if ($foo = 'bar') {            
+        }
+
+        1: AFTER ===============================================================================
+        if ($foo == 'bar') {            
+        }
+    -->
+    <rule ref="Generic.CodeAnalysis.AssignmentInCondition"/>
+
+    <!-- Ensures PHP opening and closing tags are the default <?php ... ?> -->
+    <rule ref="Generic.PHP.DisallowAlternativePHPTags"/>
+    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+
+    <!-- Discourages the use of alias functions. -->
+    <rule ref="Generic.PHP.ForbiddenFunctions"/>
+
+    <!-- Ensures deprecated PHP functions are not used -->
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+
+    <!-- Throws a warning when any code prefixed with an asperand is encountered. -->
+    <rule ref="WordPress.PHP.NoSilencedErrors"/>
+
+    <!-- Flag calling in_array(), array_search() and array_keys() without true as the third parameter. -->
+    <rule ref="WordPress.PHP.StrictInArray"/>
+
+    <!-- Ensures logical operators 'and' and 'or' are not used. -->
+    <rule ref="Squiz.Operators.ValidLogicalOperators"/>
+
+    <!--
+        Prohibits implicit true/false comparisons and ensures strict type checks (=== instead of ==)
+
+        ===================================== Examples =========================================
+        1: BEFORE ==============================================================================
+        if ($foo) {
+        }
+
+        1: AFTER ===============================================================================
+        if ($foo === true) {            
+        }
+
+        2: BEFORE ==============================================================================
+        if ($foo == false) {
+        }
+
+        2: AFTER ===============================================================================
+        if ($foo === false) {            
+        }
+    -->
+    <rule ref="Squiz.Operators.ComparisonOperatorUsage"/>
+</ruleset>

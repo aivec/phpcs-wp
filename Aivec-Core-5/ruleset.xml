@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Aivec Core 5">
+    <description>Aivec coding standard for PHP >=5.6 libraries/projects</description>
+
+    <rule ref="Aivec-Core">
+        <!-- Do not require type hinting. For PHP 5.6 compatibility -->
+        <exclude name="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing"/>
+    </rule>
+
+    <!-- Ensures compatibility with PHP versions >=5.6 -->
+    <config name="testVersion" value="5.6-"/>
+    <rule ref="PHPCompatibility"/>
+    
+</ruleset>

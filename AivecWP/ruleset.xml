@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<ruleset name="AivecWP">
+    <description>Aivec coding standard for WordPress PHP libraries/projects</description>
+
+    <rule ref="Aivec-Core"/>
+
+    <config name="minimum_supported_wp_version" value="4.6"/>
+
+    <!--
+        Ensures that variable/function names are not prefixed with 'wp' and other
+        blacklisted globals (wordpress, php, _).
+    -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals.ForbiddenPrefixPassed"/>
+
+    <!--
+        Ensures lowercase letters in action and filter names. Ensures words are
+        via underscores.
+    -->
+    <rule ref="WordPress.NamingConventions.ValidHookName"/>
+
+    <!-- Ensures that a post type slug is valid -->
+    <rule ref="WordPress.NamingConventions.ValidPostTypeSlug"/>
+
+    <!-- Restricts the use of various development functions. -->
+    <rule ref="WordPress.PHP.DevelopmentFunctions"/>
+
+    <!--
+        Discourages the use of various PHP built-in functions.
+
+        base64_encode and base64_decode are used frequently for storing and retrieving
+        blob data, which is why we exclude the 'obfuscation' group.
+
+        TODO: excluding ONLY base64_encode and base64_decode is apparently possible,
+        according to the docs, but it isn't clear:
+        https://github.com/WordPress/WordPress-Coding-Standards/wiki/Customizable-sniff-properties#excluding-a-group-of-checks
+    -->
+    <rule ref="WordPress.PHP.DiscouragedPHPFunctions">
+        <properties>
+            <property name="exclude" type="array">
+                <element value="obfuscation"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Restricts the usage of extract(). -->
+    <rule ref="WordPress.PHP.DontExtract"/>
+
+    <!--
+        Perl compatible regular expressions (PCRE, preg_ functions) should be used in preference
+        to their POSIX counterparts.
+    -->
+    <rule ref="WordPress.PHP.POSIXFunctions"/>
+
+    <!-- Flag calling preg_quote() without the second ($delimiter) parameter. -->
+    <rule ref="WordPress.PHP.PregQuoteDelimiter"/>
+
+    <!-- Forbids the use of various native PHP functions and suggests alternatives. -->
+    <rule ref="WordPress.PHP.RestrictedPHPFunctions"/>
+
+    <!-- Various rules and recommendations when accessing the database with $wpdb -->
+    <rule ref="WordPress.DB.DirectDatabaseQuery"/>
+    <rule ref="WordPress.DB.PreparedSQLPlaceholders"/>
+    <rule ref="WordPress.DB.PreparedSQL"/>
+    <rule ref="WordPress.DB.RestrictedClasses"/>
+    <rule ref="WordPress.DB.RestrictedFunctions"/>
+    <rule ref="WordPress.DB.SlowDBQuery"/>
+
+    <!-- 
+        Don't use current_time() to get a (timezone corrected) "timestamp".
+    
+        Disallow using the current_time() function to get "timestamps" as it
+        doesn't produce a *real* timestamp, but a "WordPress timestamp", i.e.
+        a Unix timestamp with current timezone offset, not a Unix timestamp ansich.
+    -->
+    <rule ref="WordPress.DateTime.CurrentTimeTimestamp"/>
+
+    <!-- Forbids the use of various native DateTime related PHP/WP functions and suggests alternatives. -->
+    <rule ref="WordPress.DateTime.RestrictedFunctions"/>
+
+    <!-- Warn about __FILE__ for page registration. -->
+    <rule ref="WordPress.Security.PluginMenuSlug"/>
+
+    <!-- Encourages use of wp_safe_redirect() to avoid open redirect vulnerabilities. -->
+    <rule ref="WordPress.Security.SafeRedirect"/>
+
+    <!-- Discourages the use of various functions and suggests (WordPress) alternatives. -->
+    <rule ref="WordPress.WP.AlternativeFunctions"/>
+
+    <!-- Flag cron schedules less than 15 minutes. -->
+    <rule ref="WordPress.WP.CronInterval"/>
+
+    <!-- Restricts the use of deprecated WordPress classes and suggests alternatives. -->
+    <rule ref="WordPress.WP.DeprecatedClasses"/>
+
+    <!-- Restricts the use of various deprecated WordPress functions and suggests alternatives. -->
+    <rule ref="WordPress.WP.DeprecatedFunctions"/>
+
+    <!-- 
+        Check for usage of deprecated parameter values in WP functions and provide alternative
+        based on the parameter passed.
+    -->
+    <rule ref="WordPress.WP.DeprecatedParameterValues"/>
+
+    <!--
+        Check for usage of deprecated parameters in WP functions and suggest alternative
+        based on the parameter passed.
+    -->
+    <rule ref="WordPress.WP.DeprecatedParameters"/>
+
+    <!-- Warns against usage of discouraged WP CONSTANTS and recommends alternatives. -->
+    <rule ref="WordPress.WP.DiscouragedConstants"/>
+
+    <!-- Discourages the use of various WordPress functions and suggests alternatives. -->
+    <rule ref="WordPress.WP.DiscouragedFunctions"/>
+
+    <!-- This checks the enqueued 4th and 5th parameters to make sure the version and in_footer are set. -->
+    <rule ref="WordPress.WP.EnqueuedResourceParameters"/>
+
+    <!-- Makes sure scripts and styles are enqueued and not explicitly echo'd. -->
+    <rule ref="WordPress.WP.EnqueuedResources"/>
+
+    <!-- Warns about overwriting WordPress native global variables. -->
+    <rule ref="WordPress.WP.GlobalVariablesOverride"/>
+
+    <!-- Makes sure WP internationalization functions are used properly. -->
+    <rule ref="WordPress.WP.I18n"/>
+
+    <!-- Flag returning high or infinite posts_per_page. -->
+    <rule ref="WordPress.WP.PostsPerPage"/>
+</ruleset>

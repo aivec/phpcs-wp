@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="AivecWP 7">
+    <description>Aivec coding standard for WordPress PHP >=7.3 libraries/projects</description>
+
+    <rule ref="AivecWP"/>
+
+    <!-- Ensures compatibility with PHP versions >=7.3 -->
+    <config name="testVersion" value="7.3-"/>
+    <rule ref="PHPCompatibilityWP"/>
+    
+</ruleset>
