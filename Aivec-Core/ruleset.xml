@@ -518,24 +518,18 @@
     <rule ref="Squiz.Operators.ValidLogicalOperators"/>
 
     <!--
-        Prohibits implicit true/false comparisons and ensures strict type checks (=== instead of ==)
+        Ensures strict type checks (=== instead of ==)
 
         ===================================== Examples =========================================
         1: BEFORE ==============================================================================
-        if ($foo) {
-        }
-
-        1: AFTER ===============================================================================
-        if ($foo === true) {            
-        }
-
-        2: BEFORE ==============================================================================
         if ($foo == false) {
         }
 
-        2: AFTER ===============================================================================
+        1: AFTER ===============================================================================
         if ($foo === false) {            
         }
     -->
-    <rule ref="Squiz.Operators.ComparisonOperatorUsage"/>
+    <rule ref="Squiz.Operators.ComparisonOperatorUsage">
+        <exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue"/>
+    </rule>
 </ruleset>
