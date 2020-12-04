@@ -5,7 +5,7 @@
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/.git/*</exclude-pattern>
-    <exclude-pattern>/dist/*</exclude-pattern>
+    <exclude-pattern>*/dist/*</exclude-pattern>
 
     <!-- Only lint PHP files -->
     <arg name="extensions" value="php" />
@@ -19,13 +19,32 @@
         function/class bracket placement. We prefer opening brackets to be placed on
         the SAME LINE rather than the NEXT LINE. This is simply a matter of taste.
     -->
-    <rule ref="PSR12">
-        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+    <rule ref="PSR12"/>
+
+    <!-- Only apply our arbitrary function open bracket placement rules to project files, not tests -->
+    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine">
+        <include-pattern>*/tests/*</include-pattern>
     </rule>
-    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+
+    <!-- Require opening brace on same line for functions (excluding test files)-->
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Don't require a namespace for test files -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Codeception has methods like _before, so we exclude this rule for test files -->
+    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
 
     <!-- Use documentation rules -->
-    <rule ref="Aivec-Docs"/>
+    <rule ref="Aivec-Docs">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
 
     <!--
         Prevents the use of array(). Ensures use of bracket syntax instead.
@@ -468,7 +487,9 @@
     <rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
 
     <!-- Ensures class public member variables do not have a leading underscore. -->
-    <rule ref="Squiz.NamingConventions.ValidVariableName.PublicHasUnderscore"/>
+    <rule ref="Squiz.NamingConventions.ValidVariableName.PublicHasUnderscore">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
  
     <!--
         Ensures string variables do not use double quotes if not required.
