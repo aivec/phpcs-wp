@@ -520,6 +520,15 @@
     <!--
         Ensures strict type checks (=== instead of ==)
 
+        TODO: consider whether to use this rule or not. Unfortunately, this rule also flags
+        comparisons such as the following:
+        
+        if (!empty($foo)) {
+        }
+
+        Preventing this sort of comparison seems too strict but there is no way to exclude it
+        in the rule. The reverse, however, can be excluded with the 'ImplicitTrue' rule.
+
         ===================================== Examples =========================================
         1: BEFORE ==============================================================================
         if ($foo == false) {
@@ -529,7 +538,7 @@
         if ($foo === false) {            
         }
     -->
-    <rule ref="Squiz.Operators.ComparisonOperatorUsage">
+    <!-- <rule ref="Squiz.Operators.ComparisonOperatorUsage">
         <exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue"/>
-    </rule>
+    </rule> -->
 </ruleset>
