@@ -5,7 +5,15 @@
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/.git/*</exclude-pattern>
+
+    <!-- Ignore files generated in a build step -->
     <exclude-pattern>*/dist/*</exclude-pattern>
+
+    <!-- Ignore Codeception auto-generated files and unneeded folders -->
+    <exclude-pattern>*/tests/_data/*</exclude-pattern>
+    <exclude-pattern>*/tests/_output/*</exclude-pattern>
+    <exclude-pattern>*/tests/_support/_generated/*</exclude-pattern>
+    <exclude-pattern>*/tests/_support/*Tester.php</exclude-pattern>
 
     <!-- Only lint PHP files -->
     <arg name="extensions" value="php" />
@@ -25,6 +33,14 @@
 
     <!-- Require opening brace on same line for functions/methods -->
     <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+
+    <!-- Ignore Codeception auto-generated files that do not adhere to this rule -->
+    <rule ref="PSR12.Files.FileHeader.SpacingAfterBlock">
+        <exclude-pattern>*/tests/_support/Helper/Acceptance.php</exclude-pattern>
+        <exclude-pattern>*/tests/_support/Helper/Functional.php</exclude-pattern>
+        <exclude-pattern>*/tests/_support/Helper/Unit.php</exclude-pattern>
+        <exclude-pattern>*/tests/_support/Helper/Wpunit.php</exclude-pattern>
+    </rule>
 
     <!-- Don't require a namespace for test files -->
     <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
