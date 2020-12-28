@@ -16,20 +16,15 @@
         Use PSR12 as base ruleset.
 
         The single place where our standard differs from the PSR12 standard is in
-        function/class bracket placement. We prefer opening brackets to be placed on
+        function/method bracket placement. We prefer opening brackets to be placed on
         the SAME LINE rather than the NEXT LINE. This is simply a matter of taste.
     -->
-    <rule ref="PSR12"/>
-
-    <!-- Only apply our arbitrary function open bracket placement rules to project files, not tests -->
-    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine">
-        <include-pattern>*/tests/*</include-pattern>
+    <rule ref="PSR12">
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
     </rule>
 
-    <!-- Require opening brace on same line for functions (excluding test files)-->
-    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie">
-        <exclude-pattern>*/tests/*</exclude-pattern>
-    </rule>
+    <!-- Require opening brace on same line for functions/methods -->
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
 
     <!-- Don't require a namespace for test files -->
     <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">

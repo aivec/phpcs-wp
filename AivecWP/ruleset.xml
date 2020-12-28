@@ -60,10 +60,15 @@
     <!-- Various rules and recommendations when accessing the database with $wpdb -->
     <rule ref="WordPress.DB.DirectDatabaseQuery"/>
     <rule ref="WordPress.DB.PreparedSQLPlaceholders"/>
-    <rule ref="WordPress.DB.PreparedSQL"/>
     <rule ref="WordPress.DB.RestrictedClasses"/>
     <rule ref="WordPress.DB.RestrictedFunctions"/>
     <rule ref="WordPress.DB.SlowDBQuery"/>
+
+    <!--
+        As long as https://github.com/WordPress/WordPress-Coding-Standards/issues/1589
+        stays open, we can't use this sniff...
+    -->
+    <!-- <rule ref="WordPress.DB.PreparedSQL"/> -->
 
     <!-- 
         Don't use current_time() to get a (timezone corrected) "timestamp".

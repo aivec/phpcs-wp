@@ -73,6 +73,24 @@
         <!-- Param comments are often unnecessary-->
         <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
 
+        <!--
+            Do not require type hinting. For PHP 5.6 compatibility.
+
+            We are in favor of type checking, but unfortunately this introduces
+            more problems then it solves at the moment.
+
+            In some cases, type-hinting causes a fatal error at runtime when the
+            correct type is not provided to a function. It is often impossible to know
+            exactly what type of data we will be recieving, especially when writing
+            REST APIs or anything that has to deal with arbitrary user input.
+
+            Another huge issue with this is when extending existing libraries that
+            do not use type-hinting. Overloading methods requires the method definition
+            to be EXACTLY the same.
+        -->
+        <exclude name="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing"/>
+        <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
+
         <!-- what even is a 'file doc comment'?... -->
         <exclude name="Squiz.Commenting.FileComment.Missing"/>
 
@@ -90,5 +108,8 @@
 
         <!-- Don't require @copyright tags -->
         <exclude name="Squiz.Commenting.FileComment.MissingCopyrightTag"/>
+
+        <!-- Conflicts with PSR12.Files.FileHeader.SpacingAfterBlock -->
+        <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
     </rule>
 </ruleset>
