@@ -9,5 +9,10 @@
     <rule ref="PHPCompatibility">
         <exclude-pattern>*/tests/*</exclude-pattern>
     </rule>
+
+    <rule ref="PSR12.Properties.ConstantVisibility">
+        <!-- Constant visibility declaration does not work in PHP versions below 7.1-->
+        <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/>
+    </rule>
     
 </ruleset>
