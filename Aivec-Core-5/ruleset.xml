@@ -6,6 +6,8 @@
 
     <!-- Ensures compatibility with PHP versions >=5.6 -->
     <config name="testVersion" value="5.6-"/>
-    <rule ref="PHPCompatibility"/>
+    <rule ref="PHPCompatibility">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
     
 </ruleset>
