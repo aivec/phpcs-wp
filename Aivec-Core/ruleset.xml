@@ -482,6 +482,8 @@
     <!--
         Ensures camelCase format for class member variables.
 
+        This rule is commented out because it is too strict for most things
+
         ===================================== Examples =========================================
         1: BEFORE ==============================================================================
         class FooBar
@@ -495,7 +497,7 @@
             protected $fooBar;
         }
     -->
-    <rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
+    <!-- <rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/> -->
 
     <!-- Ensures class public member variables do not have a leading underscore. -->
     <rule ref="Squiz.NamingConventions.ValidVariableName.PublicHasUnderscore">
