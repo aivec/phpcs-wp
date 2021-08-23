@@ -103,6 +103,9 @@
         <!-- Don't require @author tags -->
         <exclude name="Squiz.Commenting.FileComment.MissingAuthorTag"/>
 
+        <!-- Don't require @package tags. What is the point??? -->
+        <exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+
         <!-- Don't require @subpackage tags -->
         <exclude name="Squiz.Commenting.FileComment.MissingSubpackageTag"/>
 
