@@ -28,6 +28,14 @@
         <!-- Confusing if not excluded since most block comments describe what is beneath them -->
         <exclude name="Squiz.Commenting.BlockComment.NoEmptyLineAfter"/>
 
+        <!--
+            Exclude requirement of in-function block comments to start with `/*`
+
+            wp-phpdoc-parser doesn't work if a hook doc comment doesn't start with `/**`.
+            Also required for syntax highlighting of hook parameters in the doc comment
+        -->
+        <exclude name="Squiz.Commenting.BlockComment.WrongStart"/>
+
         <!-- We prefer indicating @since, etc in class comments -->
         <exclude name="Squiz.Commenting.ClassComment.TagNotAllowed"/>
 
