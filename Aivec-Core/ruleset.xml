@@ -136,7 +136,7 @@
         2: AFTER ===============================================================================
         $myarray = ['element1', 'element2'];
     -->
-    <rule ref="WordPress.Arrays.CommaAfterArrayItem"/>
+    <!-- <rule ref="WordPress.Arrays.CommaAfterArrayItem"/> -->
 
     <!--
         Ensures that values in a multi-line array are indented correctly.
